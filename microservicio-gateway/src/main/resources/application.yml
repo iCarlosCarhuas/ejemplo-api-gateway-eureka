@@ -1,0 +1,26 @@
+server:
+  port: 8080
+
+spring:
+  application:
+    name: microservicio-gateway
+  cloud:
+    gateway:
+      routes:
+        - id: microservicio-proveedor
+          uri: lb://microservicio-proveedor
+          predicates:
+            - Path=/proveedor/**
+        - id: microservicio-inventario
+          uri: lb://microservicio-inventario
+          predicates:
+            - Path=/inventario/**
+        - id: microservicio-pedido
+          uri: lb://microservicio-pedido
+          predicates:
+            - Path=/pedido/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:8761/eureka
